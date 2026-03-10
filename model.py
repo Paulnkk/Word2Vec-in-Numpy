@@ -7,7 +7,7 @@ class Word2VecNumPy:
         self.d = embed_dim
         self.lr = learning_rate
 
-        # Initialize weights (parameters).
+        # Initialize weights uniformly between -0.5/embed_dim and 0.5/embed_dim
         self.W_in = np.random.uniform(-0.5 / embed_dim, 0.5 / embed_dim, (vocab_size, embed_dim))
         self.W_out = np.random.uniform(-0.5 / embed_dim, 0.5 / embed_dim, (vocab_size, embed_dim))
 
