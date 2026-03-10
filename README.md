@@ -7,7 +7,7 @@ It includes preprocessing, negative sampling, model training, and simple similar
 
 - `preprocessing.py`: text preprocessing, vocabulary creation, context-pair generation, and unigram-based negative sampling
 - `model.py`: skip-gram model with negative sampling update step
-- `main.py`: dataset download/load, training loop, and embedding similarity examples
+- `main.py`: dataset download/load, training loop, and interactive similarity query prompt
 
 ## Features
 
@@ -55,8 +55,25 @@ $env:EPOCHS=1
 python main.py
 ```
 
+## Interactive Similarity Query
+
+After training finishes, the script enters an interactive loop where you can type word pairs:
+
+```
+Enter two words (space-separated): king queen
+Similarity (king, queen): 0.3821
+
+Enter two words (space-separated): apple cat
+Similarity (apple, cat): -0.0512
+
+Enter two words (space-separated): quit
+Goodbye!
+```
+
+If a word is not in the vocabulary, you will see an out-of-vocabulary message instead.
+
 ## Notes
 
 - Training with `MAX_WORDS=50000` can take time in pure NumPy depending on your CPU.
 - Start with smaller values (for example, `MAX_WORDS=10000`, `EPOCHS=1`) for quick iteration.
-- Similarity examples at the end are a sanity check, not a benchmark.
+- Similarity scores depend on corpus size and training epochs; results on small slices are a sanity check, not a benchmark.
