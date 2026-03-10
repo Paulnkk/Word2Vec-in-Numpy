@@ -74,15 +74,25 @@ def main():
             total_loss += model.train_step(target, pos_context, negative_ids)
         print(f"Epoch {epoch + 1}/{epochs}, Loss: {total_loss:.4f}")
 
-    # 5) Result: quick similarity checks.
-    print("\nResults:")
-    candidate_pairs = [("king", "queen"), ("king", "cat"), ("apple", "orange")]
-    for w1, w2 in candidate_pairs:
+    # 5) Interactive similarity query loop.
+    print("\nTraining complete. Enter word pairs to check similarity.")
+    print(f"Sample vocabulary: {list(processor.word2id.keys())[:30]}")
+    print("Type 'quit' to exit.\n")
+    while True:
+        user_input = input("Enter two words (space-separated): ").strip()
+        if user_input.lower() in ("quit", "exit", "q"):
+            print("Goodbye!")
+            break
+        parts = user_input.split()
+        if len(parts) != 2:
+            print("Please enter exactly two words separated by a space.")
+            continue
+        w1, w2 = parts
         try:
             score = get_similarity(w1, w2, processor, model)
             print(f"Similarity ({w1}, {w2}): {score:.4f}")
-        except KeyError:
-            print(f"Similarity ({w1}, {w2}): skipped (out-of-vocabulary)")
+        except KeyError as e:
+            print(e)
 
 
 if __name__ == "__main__":
